@@ -4,43 +4,37 @@ const dateFormatOptions: Intl.DateTimeFormatOptions = {
     weekday: "long"
 }
 
-const WMOWeatherCodeInterpretationCodes = (code: number): string => {
-    switch (code) {
-        case 0: return 'Clear Sky'
-        case 1: return 'Mainly Clear'
-        case 2: return 'Partly Cloudy'
-        case 3: return 'Overcast'
-        case 45: return 'Fog'
-        case 48: return 'Depositing Rime Fog'
-        case 51: return 'Light Drizzle'
-        case 53: return 'Moderate Drizzle'
-        case 55: return 'Dense Drizzle'
-        case 56: return 'Light Freezing Drizzle'
-        case 57: return 'Dense Freezing Drizzle'
-        case 61: return 'Slight Rain'
-        case 63: return 'Moderate Rain'
-        case 65: return 'Heavy Rain'
-        case 66: return 'Light Freezing Rain'
-        case 67: return 'Heavy Freezing Rain'
-        case 71: return 'Slight Snow Fall'
-        case 73: return 'Moderate Snow Fall'
-        case 75: return 'Heavy Snow Fall'
-        case 77: return 'Snow Grains'
-        case 80: return 'Slight Rain Showers'
-        case 81: return 'Moderate Rain Showers'
-        case 82: return 'Violent Rain Showers'
-        case 85: return 'Slight Snow Showers'
-        case 86: return 'Heavy Snow showers'
-        case 95: return 'Slight or Moderate Thunderstorm'
-        case 96: return 'Thunderstorm with Slight Hail'
-        case 99: return 'Thunderstorm with Heavy Hail'
+const timeFormatOptions: Intl.DateTimeFormatOptions = {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true
+}
+
+const getWindDirectionFromDegrees = (degrees: number): string => {
+    switch (true) {
+        case (degrees > 348.75 || degrees <= 11.25): return 'North'
+        case (degrees > 11.25 && degrees <= 33.75): return 'North of North East'
+        case (degrees > 33.75 && degrees <= 56.25): return 'North East'
+        case (degrees > 56.25 && degrees <= 78.75): return 'East of North East'
+        case (degrees > 78.75 && degrees <= 101.25): return 'East'
+        case (degrees > 101.25 && degrees <= 123.75): return 'East of South East'
+        case (degrees > 123.75 && degrees <= 146.25): return 'South East'
+        case (degrees > 146.25 && degrees <= 168.75): return 'South of South East'
+        case (degrees > 168.75 && degrees <= 191.25): return 'South'
+        case (degrees > 191.25 && degrees <= 213.75): return 'South of South West'
+        case (degrees > 213.75 && degrees <= 236.25): return 'South West'
+        case (degrees > 236.25 && degrees <= 258.75): return 'West of South West'
+        case (degrees > 258.75 && degrees <= 281.25): return 'West'
+        case (degrees > 281.25 && degrees <= 303.75): return 'West of North West'
+        case (degrees > 303.75 && degrees <= 326.25): return 'North West'
+        case (degrees > 326.25 && degrees <= 348.75): return 'North of North West'
         default: return ''
     }
 }
 
 const Constants = {
     //Replace LAT, LNG with Latitude, Longitude respectively of Location while calling the API
-    WeatherURL: 'https://api.open-meteo.com/v1/forecast?latitude=LAT&longitude=LNG&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_mean&forecast_days=15&hourly=relativehumidity_2m&timezone=auto',
+    WeatherURL: 'https://api.open-meteo.com/v1/forecast?latitude=LAT&longitude=LNG&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_mean,sunrise,sunset,uv_index_max,windspeed_10m_max,winddirection_10m_dominant&forecast_days=15&hourly=relativehumidity_2m&timezone=auto',
     //Replace LAT, LNG with Latitude, Longitude respectively of Location while calling the API
     GeoLocationURL: 'https://nominatim.openstreetmap.org/reverse?format=geojson&lat=LAT&lon=LNG',
     //Replace SEARCH with Search String of Location while calling the API
@@ -48,7 +42,8 @@ const Constants = {
     //Replace LAT, LNG with Latitude, Longitude respectively of Location while calling the API
     AirQualityURL: 'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=LAT&longitude=LNG&hourly=us_aqi&timezone=auto',
     dateFormatOptions,
-    WMOWeatherCodeInterpretationCodes
+    timeFormatOptions,
+    getWindDirectionFromDegrees
 }
 
 export default Constants

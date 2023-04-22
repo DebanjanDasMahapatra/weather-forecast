@@ -3,7 +3,7 @@ import AirQualityResponse from "../interfaces/air-quality-response"
 import MainWeatherResponse from "../interfaces/weather-response"
 import Constants from "../utils/constants"
 
-const WeatherForecastTable = ({ weatherData, airQualityData }: { weatherData: MainWeatherResponse | undefined, airQualityData: AirQualityResponse | undefined }) => {
+const WeatherForecastContent = ({ weatherData, airQualityData }: { weatherData: MainWeatherResponse | undefined, airQualityData: AirQualityResponse | undefined }) => {
     return <>
         <Container fluid="md">
             <Row>
@@ -22,9 +22,17 @@ const WeatherForecastTable = ({ weatherData, airQualityData }: { weatherData: Ma
                             {weatherData.precipitation_probability_mean[index] != null && <Card.Text>
                                 Chances of Rain: {weatherData.precipitation_probability_mean[index]}%
                             </Card.Text>}
-                            {airQualityData.us_aqi[index] != 0 && <Card.Text className="text-warning fw-bold">
-                                AQI: {airQualityData.us_aqi[index]}
-                            </Card.Text>}
+                            <Card.Text className="text-warning fw-bold">
+                                UV Index: {weatherData.uv_index_max[index]}<br />
+                                {airQualityData.us_aqi[index] != 0 && <span>AQI: {airQualityData.us_aqi[index]}</span>}
+                            </Card.Text>
+                            <Card.Text>
+                                Sunrise: {new Intl.DateTimeFormat("en-US", Constants.timeFormatOptions).format(new Date(new Date(weatherData.sunrise[index])))}<br />
+                                Sunset: {new Intl.DateTimeFormat("en-US", Constants.timeFormatOptions).format(new Date(new Date(weatherData.sunset[index])))}
+                            </Card.Text>
+                            <Card.Text className="text-success fw-bold">
+                                Wind: {weatherData.windspeed_10m_max[index]} km/h {Constants.getWindDirectionFromDegrees(weatherData.winddirection_10m_dominant[index])}
+                            </Card.Text>
                         </Card.Body>
                     </Card>
                 </Col>)}
@@ -33,4 +41,4 @@ const WeatherForecastTable = ({ weatherData, airQualityData }: { weatherData: Ma
     </>
 }
 
-export default WeatherForecastTable
+export default WeatherForecastContent
