@@ -27,8 +27,8 @@ const WeatherForecastContent = ({ weatherData, airQualityData }: { weatherData: 
                                 {airQualityData.us_aqi[index] != 0 && <span>AQI: {airQualityData.us_aqi[index]}</span>}
                             </Card.Text>
                             <Card.Text>
-                                Sunrise: {new Intl.DateTimeFormat("en-US", Constants.timeFormatOptions).format(new Date(new Date(weatherData.sunrise[index])))}<br />
-                                Sunset: {new Intl.DateTimeFormat("en-US", Constants.timeFormatOptions).format(new Date(new Date(weatherData.sunset[index])))}
+                                Sunrise: {new Intl.DateTimeFormat("en-US", Constants.timeFormatOptions).format(new Date(weatherData.sunrise[index]))}<br />
+                                Sunset: {new Intl.DateTimeFormat("en-US", Constants.timeFormatOptions).format(new Date(weatherData.sunset[index]))}
                             </Card.Text>
                             <Card.Text className="text-success fw-bold">
                                 Wind: {weatherData.windspeed_10m_max[index]} km/h {Constants.getWindDirectionFromDegrees(weatherData.winddirection_10m_dominant[index])}
