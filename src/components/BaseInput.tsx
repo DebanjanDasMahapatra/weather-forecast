@@ -239,22 +239,20 @@ const BaseInput = () => {
             </Form.Group>}
 
             {locationType == "other" && <ListGroup>
-                {showCachedResults && cachedResults.filter((searchResultCache: SearchResultsCacheData) => searchResultCache.searchName != "").slice(0, 10).map((searchResultCache: SearchResultsCacheData) => <ListGroup.Item className="bg-dark text-light" style={{ borderColor: 'grey' }} key={searchResultCache.displayName} action onMouseDown={() => selectSearchResultsFromCache(searchResultCache.displayName)}><i className="material-icons">history</i> {searchResultCache.searchName}</ListGroup.Item>)}
+                {showCachedResults && cachedResults.filter((searchResultCache: SearchResultsCacheData) => searchResultCache.searchName != "").slice(0, 10).map((searchResultCache: SearchResultsCacheData) => <ListGroup.Item className="bg-dark text-light custom-list-item" key={searchResultCache.displayName} action onMouseDown={() => selectSearchResultsFromCache(searchResultCache.displayName)}><i className="material-icons">history</i> {searchResultCache.searchName}</ListGroup.Item>)}
 
-                {searchResults.map((searchResult: GeoCodingSearchResults) => <ListGroup.Item className="bg-dark text-light" style={{ borderColor: 'grey' }} key={searchResult.id} action onMouseDown={() => selectSearchResults(searchResult.id)}><i className="material-icons">arrow_outward</i>{getCompleteLocation(searchResult)}</ListGroup.Item>)}
+                {searchResults.map((searchResult: GeoCodingSearchResults) => <ListGroup.Item className="bg-dark text-light custom-list-item" key={searchResult.id} action onMouseDown={() => selectSearchResults(searchResult.id)}><i className="material-icons">arrow_outward</i>{getCompleteLocation(searchResult)}</ListGroup.Item>)}
             </ListGroup>}
         </Container >
         <br />
         {isLoading && <div className="text-center"><Spinner animation="border" variant="primary" /></div>}
         {
-            !isLoading && <>
-                <Container fluid>
-                    <Row>
-                        <Col xs="1"><i className="material-icons text-danger">location_on</i></Col>
-                        <Col xs="11"><span className="text-success fw-bold"><em>{geoLocation}</em></span></Col>
-                    </Row>
-                </Container>
-            </>
+            !isLoading && <Container fluid>
+                <Row>
+                    <Col xs="1"><i className="material-icons text-danger">location_on</i></Col>
+                    <Col xs="11"><span className="text-success fw-bold"><em>{geoLocation}</em></span></Col>
+                </Row>
+            </Container>
         }
         <br />
         {state == "found" && <WeatherForecastContent weatherData={weatherData} airQualityData={airQualityData} />}

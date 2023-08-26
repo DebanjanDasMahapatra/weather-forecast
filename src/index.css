@@ -10,8 +10,7 @@ body {
 }
 
 code {
-	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-		monospace;
+	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 ::-webkit-scrollbar {
@@ -51,4 +50,16 @@ a {
 
 a:hover {
 	color: skyblue
+}
+
+.custom-list-item {
+	border-color: grey !important;
+}
+
+.icons {
+	width: 25px;
+}
+
+.text-right {
+	text-align: right !important;
 }
